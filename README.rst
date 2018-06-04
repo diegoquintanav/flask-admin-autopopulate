@@ -1,4 +1,4 @@
-This example shows how to implement a button that assists the creation of relationships, and is based on this ![https://github.com/flask-admin/flask-admin/tree/master/examples/layout_bootstrap3](Flask-Admin example). 
+This example shows how to implement a button that assists the creation of relationships, and is based on `this example  <https://github.com/flask-admin/flask-admin/tree/master/examples/layout_bootstrap3>`_.
 
 The problem that attempts to solve is reviewed in https://stackoverflow.com/questions/50661791/add-buttons-that-populate-other-fields-in-built-in-templates-of-flask-admin?noredirect=1#comment88342923_50661791
 
