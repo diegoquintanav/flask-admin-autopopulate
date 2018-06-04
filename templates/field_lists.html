@@ -1,0 +1,10 @@
+{% import 'admin/model/inline_list_base.html' as base with context %}
+
+{% macro render_field(field) %}
+  {% set model = field.object_data %}
+  {% if model %}
+    {{ field }}
+  {% endif %}
+{% endmacro %}
+
+{{ base.render_inline_fields(field, template, render_field) }}

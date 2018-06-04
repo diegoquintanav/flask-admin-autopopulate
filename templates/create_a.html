@@ -1,0 +1,46 @@
+{% extends 'admin/model/create.html' %} {% block brand %}
+<h2 id="brand">Create {{ admin_view.name|capitalize }}</h2>
+<div class="clearfix"></div>
+<hr> {% endblock %} 
+
+{% block body %} 
+
+{% call lib.form_tag(form) %} 
+
+<div class="col-xg-10">
+  <!-- form.cities follows the attributes of sqla model -->
+  {{ lib.render_form_fields([form.name])}}
+</div>
+
+<div>
+<div class="col-xg-10">
+  <!-- form.cities follows the attributes of sqla model -->
+  {{ lib.render_form_fields([form.sub_locations_a])}}
+</div>
+
+<div class="col-xg-2">
+  <!-- so this button should query any model related to form.cities 
+                and populate the create form with whatever comes out.
+      
+                Say Street has a one to many relationship, I want this 
+              button to run some method of the form get_instances_of_b_from_instance_of_a(form.instances_of_a) (query_method() for short) that fills
+              the field form.instances_of_b
+              
+              If possible I would like to pop up a modal window prompting the user
+              to confirm this before filling this field.-->
+  <a href="#" class="btn btn-default">Add with cascade</a>
+</div>
+<div>
+
+
+<div class="col-xg-10">
+    <!-- form.cities follows the attributes of sqla model -->
+    {{ lib.render_form_fields([form.sub_locations_a])}}
+  </div>
+  
+
+<div class="form-buttons">
+  {{ lib.render_form_buttons(return_url, extra()) }}
+</div>
+
+{% endcall %} {% endblock %}
