@@ -1,11 +1,11 @@
 {% extends 'admin/model/create.html' %} {% block brand %}
 <h2 id="brand">Create {{ admin_view.name|capitalize }}</h2>
 <div class="clearfix"></div>
-<hr> {% endblock %} 
+<hr> {% endblock %}
 
-{% block body %} 
+{% block body %}
 
-{% call lib.form_tag(form) %} 
+{% call lib.form_tag(form) %}
 
 <div class="col-xg-10">
   <!-- form.cities follows the attributes of sqla model -->
@@ -19,25 +19,52 @@
 </div>
 
 <div class="col-xg-2">
-  <!-- so this button should query any model related to form.cities 
+  <!-- so this button should query any model related to form.cities
                 and populate the create form with whatever comes out.
-      
-                Say Street has a one to many relationship, I want this 
+
+                Say Street has a one to many relationship, I want this
               button to run some method of the form get_instances_of_b_from_instance_of_a(form.instances_of_a) (query_method() for short) that fills
               the field form.instances_of_b
-              
+
               If possible I would like to pop up a modal window prompting the user
               to confirm this before filling this field.-->
-  <a href="#" class="btn btn-default">Add with cascade</a>
+  <a href="#" class="btn btn-default" onClick="retrieve_location_b_ids()">Add with cascade</a>
+  <script>
+  function retrieve_location_b_ids(){
+
+    // make sure that the user wants to preload the b locations
+    if (confirm('load location b connected to location a?')){
+      // look for the selected options
+      var selected_a_locations = $('#s2id_sub_locations_a').select2("val");
+
+      // request the b_ids using the a_ids provided by the user using ajax
+      var oData = new FormData();
+      oData.append('selected_a_locations', JSON.stringify(selected_a_locations));
+      var oReq = new XMLHttpRequest();
+      oReq.open("POST", "{{url_for('look_up_b_locations_connected_to_a_locations')}}", true);
+      oReq.onload = function(oEvent) {
+        if (oReq.status == 200) {
+          // get the correct b ids back from the ajax request, and use them to load the select2 field
+          var selected_b_ids_list = JSON.parse(oReq.responseText)
+          $('#s2id_sub_locations_b').select2('val', selected_b_ids_list);
+        } else {
+          alert("Error " + oReq.status + " occurred when trying to upload your file")
+        }
+      };
+      oReq.send(oData);
+    }
+  }
+
+  </script>
 </div>
 <div>
 
 
 <div class="col-xg-10">
     <!-- form.cities follows the attributes of sqla model -->
-    {{ lib.render_form_fields([form.sub_locations_a])}}
+    {{ lib.render_form_fields([form.sub_locations_b])}}
   </div>
-  
+
 
 <div class="form-buttons">
   {{ lib.render_form_buttons(return_url, extra()) }}
