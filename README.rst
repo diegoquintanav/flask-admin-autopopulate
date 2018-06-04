@@ -1,11 +1,15 @@
-This example shows how you can customize the look & feel of the admin interface. This is done by overriding some of the built-in templates.
+This example shows how to implement a button that assists the creation of relationships, and is based on this ![https://github.com/flask-admin/flask-admin/tree/master/examples/layout_bootstrap3](Flask-Admin example). 
+
+The problem that attempts to solve is reviewed in https://stackoverflow.com/questions/50661791/add-buttons-that-populate-other-fields-in-built-in-templates-of-flask-admin?noredirect=1#comment88342923_50661791
+
+This is done by overriding some of the built-in templates.
 
 To run this example:
 
 1. Clone the repository::
 
-    git clone https://github.com/flask-admin/flask-admin.git
-    cd flask-admin
+    git clone https://github.com/diegoquintanav/flask-admin-autopopulate
+    cd flask-admin-autopopulate
 
 2. Create and activate a virtual environment::
 
@@ -14,14 +18,9 @@ To run this example:
 
 3. Install requirements::
 
-    pip install -r 'examples/layout_bootstrap3/requirements.txt'
+    pip install -r requirements.txt
 
 4. Run the application::
 
-    python examples/layout_bootstrap3/app.py
+    python app.py
 
-The first time you run this example, a sample sqlite database gets populated automatically. To suppress this behaviour,
-comment the following lines in app.py:::
-
-    if not os.path.exists(database_path):
-        build_sample_db()
